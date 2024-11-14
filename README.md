@@ -1,3 +1,3 @@
 # Tednoname.github.io
-This is a page that you can play your favorite Nintendo games on 
-I am newer to coding so it isn't perfect.
+*## I am newer to coding so it isn't perfect.*
+*This is a page where you can play your favorite Nintendo games.*
