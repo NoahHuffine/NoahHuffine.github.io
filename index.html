@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>EmulatorJS Demo</title>
+        <title>Emulator</title>
         <link rel = icon href = docs/favicon.ico sizes = "16x16 32x32 48x48 64x64" type = image/vnd.microsoft.icon>
         <meta name = viewport content = "width = device-width, initial-scale = 1">
         <style>
@@ -83,12 +83,6 @@
                 color: #ddd
             }
 
-            .logo {
-                width: 130px;
-                height: 130px;
-                filter: drop-shadow(0 0 10px white);
-            }
-
             #top {
                 margin: 5px;
             }
@@ -97,8 +91,7 @@
 
     <body>
         <div id="top">
-            <h1>EmulatorJS Demo</h1>
-            <img src="docs/Logo-light.png" alt="Logo" class="logo">
+            <h1>Emulator Demo</h1>
         </div>
         <div id = box>
             <input type = file id = input>
@@ -125,6 +118,7 @@
                     console.warn("Threads are disabled as SharedArrayBuffer is not available. Threads requires two headers to be set when sending you html page. See https://stackoverflow.com/a/68630724");
                     console.log("Threads are disabled");
                 }
+            
             } else {
                 console.log("Threads are disabled");
             }
