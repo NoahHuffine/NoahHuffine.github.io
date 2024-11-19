@@ -7,7 +7,23 @@
         <style>
              body, html {
                 height: 100%;
-                background: url(docs/g.png);
+                gradient-background {
+  background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
+  background-size: 180% 180%;
+  animation: gradient-animation 3s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
                 color: #112c35;
             }
 
