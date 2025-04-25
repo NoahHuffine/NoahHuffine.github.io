@@ -80,10 +80,16 @@
     </head>
     <body>
         <div id="top">
+        <button class="button-64" role="button"><span class="text">Emulator</span></button>
         <a href="Emulator.html"><button>Emulator</button></a>
         <a href="games.html"><button>Games</button></a>
         </div>
         <script>
+              const emulatorButton = document.querySelector('.button-64');
+
+  emulatorButton.addEventListener('click', function() {
+    window.location.href = 'https://tednoname.github.io/Emulator.html';
+  });
         </script>
     </body>
 </html>
