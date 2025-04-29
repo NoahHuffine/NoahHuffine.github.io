@@ -11,68 +11,6 @@
       />
       <link rel="stylesheet" href="style.css" />
         <style>
-
-            body, #box, #top {
-                display: flex;
-                align-items: Left;
-                justify-content: Left;
-                flex-direction: row;
-            }
-
-            #box {
-                color: #aaa;
-                height: 20em;
-                width: 30em;
-                max-width: 80%;
-                max-height: 80%;
-                background-color: #333;
-                border-radius: 0.4em;
-                border: 2px solid #555;
-                position: relative;
-                flex-direction: column;
-                transition-duration: 0.2s;
-                overflow: hidden;
-                font-family: monospace;
-                font-weight: bold;
-                font-size: 20px;
-                margin: 5px;
-            }
-
-            #box:hover, #box[drag] {
-                border-color: #38f;
-                color: #ddd
-            }
-
-            #input {
-                cursor: pointer;
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0
-            }
-
-            #display {
-                width: 100%;
-                height: 100%
-            }
-
-             select, button {
-                padding: 0.6em 0.4em;
-                margin: 0.5em;
-                width: 15em;
-                max-width: 100%;
-                font-family: monospace;
-                font-weight: bold;
-                font-size: 16px;
-                background-color: #444;
-                color: #aaa;
-                border-radius: 0.4em;
-                border: 1px solid #555;
-                cursor: pointer;
-                transition-duration: 0.2s
-            }
           </style>
            <div class="stars"></div>
            <div class="shooting-star"></div>
@@ -80,35 +18,9 @@
            <div class="shooting-star"></div>
            <div class="shooting-star"></div>
            <div class="shooting-star"></div>
-             
     </head>
     <body>
-      <div id="top">
-        <button class="cssbuttons-io" id="homeButton">
-            <span>
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 0h24v24H0z" fill="none"></path>
-                <path
-                  d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-              home
-            </span>
-          </button>
-          
-          <script>
-            document.getElementById('homeButton').addEventListener('click', function() {
-              window.location.href = 'https://tednoname.github.io/index.html';
-            });
-
-    <a herf= "rel="noopener" href="https://tednoname.github.io/games/unicycle-hero/unicycle-hero.html"><button>Unicycle Hero</button>
-        <a herf= "rel="noopener" href="https://tednoname.github.io/games/block-blast/block-blast.html"><button>Block Blast</button>
-        <a herf= "rel="noopener" href="https://tednoname.github.io/games/minecraft/Astra_Client.html"><button>Minecraft Astra Client</button>
-        <style type="text/css">
-
-
-            <button class="cssbuttons-io" id="uniButton">
+            <button class="cssbuttons-io" id="emulatorButton">
                 <span>
                   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none"></path>
@@ -117,17 +29,74 @@
                       fill="currentColor"
                     ></path>
                   </svg>
-                  unicycle-hero
+                  Home
                 </span>
               </button>
               
               <script>
-                document.getElementById('uniButton').addEventListener('click', function() {
-                  window.location.href = 'htttps://tednoname.github.io/games/unicycle-hero/unicycle-hero.html
+                document.getElementById('emulatorButton').addEventListener('click', function() {
+                  window.location.href = 'tednoname.github.io/index.html';
                 });
+              </script>           
+<a href="https://tednoname.github.io/games/unicycle-hero/unicycle-hero.html" style="text-decoration: none;">
+    <button class="cssbuttons-io">
+      <span>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        Unicycle Hero
+      </span>
+    </button>
+  </a>
+  <a href="https://tednoname.github.io/games/block-blast/block-blast.html" style="text-decoration: none;">
+    <button class="cssbuttons-io">
+      <span>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        Block Blast
+      </span>
+    </button>
+  </a>
+  <a href="https://tednoname.github.io/games/block-blast/block-blast.html" style="text-decoration: none;">
+    <button class="cssbuttons-io">
+      <span>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        Block Blast
+      </span>
+    </button>
+  </a>
+  <a href="https://tednoname.github.io/games/minecraft/Astra_Client.html" style="text-decoration: none;">
+    <button class="cssbuttons-io">
+      <span>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        Minecraft
+      </span>
+    </button>
+  </a>
 
-</style>
         </div>
-    </script>
+        <script>
+        </script>
     </body>
 </html>
