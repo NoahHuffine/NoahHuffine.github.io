@@ -40,152 +40,168 @@
             Drag ROM file or click here
         </div>
 
-        <script>
-            let enableDebug = false;
-            let enableThreads = false;
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            if (urlParams.get('debug') == 1) {
-                enableDebug = true;
-                console.log("Debug is enabled");
-            } else {
-                console.log("Debug is disabled");
-            }
+  <style>
+    #box {
+      border: 2px dashed transparent;
+      padding: 40px;
+      text-align: center;
+      transition: border-color 0.3s;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 40px auto;
+    }
 
-            if (urlParams.get('threads') == 1) {
-                if (window.SharedArrayBuffer) {
-                    enableThreads = true;
-                    console.log("Threads are enabled");
-                } else {
-                    console.warn("Threads are disabled as SharedArrayBuffer is not available. Threads requires two headers to be set when sending you html page. See https://stackoverflow.com/a/68630724");
-                    console.log("Threads are disabled");
-                }
-            
-            } else {
-                console.log("Threads are disabled");
-            }
-            
-            input.onchange = async () => {
-                const url = input.files[0]
-                const parts = input.files[0].name.split(".")
+    #box[drag] {
+      border-color: #4caf50;
+      background-color: #f0fff0;
+    }
 
-                const core = await (async (ext) => {
-                    if (["fds", "nes", "unif", "unf"].includes(ext))
-                        return "nes"
+    #input {
+      display: none;
+    }
+  </style>
+</head>
+<body>
 
-                    if (["smc", "fig", "sfc", "gd3", "gd7", "dx2", "bsx", "swc"].includes(ext))
-                        return "snes"
+  <div id="box">
+    <input type="file" id="input" />
+    <label for="input" class="cssbuttons-io-button">
+      <span>Drag ROM file or click here</span>
+    </label>
+  </div>
 
-                    if (["z64", "n64"].includes(ext))
-                        return "n64"
+  <script>
+    const input = document.getElementById("input");
+    const box = document.getElementById("box");
 
-                    if (["pce"].includes(ext))
-                        return "pce"
+    let enableDebug = false;
+    let enableThreads = false;
+    const urlParams = new URLSearchParams(window.location.search);
 
-                    if (["ngp", "ngc"].includes(ext))
-                        return "ngp"
+    if (urlParams.get('debug') === '1') {
+      enableDebug = true;
+      console.log("Debug is enabled");
+    } else {
+      console.log("Debug is disabled");
+    }
 
-                    if (["ws", "wsc"].includes(ext))
-                        return "ws"
+    if (urlParams.get('threads') === '1') {
+      if (window.SharedArrayBuffer) {
+        enableThreads = true;
+        console.log("Threads are enabled");
+      } else {
+        console.warn("Threads are disabled as SharedArrayBuffer is not available. See: https://stackoverflow.com/a/68630724");
+      }
+    } else {
+      console.log("Threads are disabled");
+    }
 
-                    if (["col", "cv"].includes(ext))
-                        return "coleco"
+    input.onchange = async () => {
+      const file = input.files[0];
+      const parts = file.name.split(".");
+      const ext = parts.pop();
 
-                    if (["d64"].includes(ext))
-                        return "vice_x64sc"
+      const core = await (async (ext) => {
+        const known = {
+          nes: ["fds", "nes", "unif", "unf"],
+          snes: ["smc", "fig", "sfc", "gd3", "gd7", "dx2", "bsx", "swc"],
+          n64: ["z64", "n64"],
+          pce: ["pce"],
+          ngp: ["ngp", "ngc"],
+          ws: ["ws", "wsc"],
+          coleco: ["col", "cv"],
+          vice_x64sc: ["d64"],
+        };
 
-                    if (["nds", "gba", "gb", "z64", "n64"].includes(ext))
-                        return ext
+        for (const [k, v] of Object.entries(known)) {
+          if (v.includes(ext)) return k;
+        }
 
-                    return await new Promise(resolve => {
-                        var coreValues = {
-                            "Nintendo 64": "n64",
-                            "Nintendo Game Boy": "gb",
-                            "Nintendo Game Boy Advance": "gba",
-                            "Nintendo DS": "nds",
-                            "Nintendo Entertainment System": "nes",
-                            "Super Nintendo Entertainment System": "snes",
-                            "PlayStation": "psx",
-                            "Virtual Boy": "vb",
-                            "Sega Mega Drive": "segaMD",
-                            "Sega Master System": "segaMS",
-                            "Sega CD": "segaCD",
-                            "Atari Lynx": "lynx",
-                            "Sega 32X": "sega32x",
-                            "Atari Jaguar": "jaguar",
-                            "Sega Game Gear": "segaGG",
-                            "Sega Saturn": "segaSaturn",
-                            "Atari 7800": "atari7800",
-                            "Atari 2600": "atari2600",
-                            "NEC TurboGrafx-16/SuperGrafx/PC Engine": "pce",
-                            "NEC PC-FX": "pcfx",
-                            "SNK NeoGeo Pocket (Color)": "ngp",
-                            "Bandai WonderSwan (Color)": "ws",
-                            "ColecoVision": "coleco",
-                            "Commodore 64": "vice_x64sc",
-                            "Commodore 128": "vice_x128",
-                            "Commodore VIC20": "vice_xvic",
-                            "Commodore Plus/4": "vice_xplus4",
-                            "Commodore PET": "vice_xpet"
-                        }
+        if (["nds", "gba", "gb", "z64", "n64"].includes(ext)) return ext;
 
-                        const cores = Object.keys(coreValues).sort().reduce(
-                            (obj, key) => { 
-                                obj[key] = coreValues[key]; 
-                                return obj;
-                            }, 
-                            {}
-                        );
+        // fallback: prompt for system
+        return await new Promise(resolve => {
+          const coreMap = {
+            "Nintendo 64": "n64",
+            "Nintendo Game Boy": "gb",
+            "Nintendo Game Boy Advance": "gba",
+            "Nintendo DS": "nds",
+            "Nintendo Entertainment System": "nes",
+            "Super Nintendo Entertainment System": "snes",
+            "PlayStation": "psx",
+            "Virtual Boy": "vb",
+            "Sega Mega Drive": "segaMD",
+            "Sega Master System": "segaMS",
+            "Sega CD": "segaCD",
+            "Atari Lynx": "lynx",
+            "Sega 32X": "sega32x",
+            "Atari Jaguar": "jaguar",
+            "Sega Game Gear": "segaGG",
+            "Sega Saturn": "segaSaturn",
+            "Atari 7800": "atari7800",
+            "Atari 2600": "atari2600",
+            "NEC TurboGrafx-16/SuperGrafx/PC Engine": "pce",
+            "NEC PC-FX": "pcfx",
+            "SNK NeoGeo Pocket (Color)": "ngp",
+            "Bandai WonderSwan (Color)": "ws",
+            "ColecoVision": "coleco",
+            "Commodore 64": "vice_x64sc",
+            "Commodore 128": "vice_x128",
+            "Commodore VIC20": "vice_xvic",
+            "Commodore Plus/4": "vice_xplus4",
+            "Commodore PET": "vice_xpet"
+          };
 
-                        const button = document.createElement("button")
-                        const select = document.createElement("select")
+          const select = document.createElement("select");
+          const button = document.createElement("button");
 
-                        for (const type in cores) {
-                            const option = document.createElement("option")
+          for (const [label, val] of Object.entries(coreMap)) {
+            const opt = document.createElement("option");
+            opt.value = val;
+            opt.textContent = label;
+            select.appendChild(opt);
+          }
 
-                            option.value = cores[type]
-                            option.textContent = type
-                            select.appendChild(option)
-                        }
+          button.textContent = "Load Game";
+          button.onclick = () => resolve(select.value);
 
-                        button.onclick = () => resolve(select[select.selectedIndex].value)
-                        button.textContent = "Load game"
-                        box.innerHTML = ""
+          box.innerHTML = "";
+          box.appendChild(select);
+          box.appendChild(button);
+        });
+      })(ext);
 
-                        box.appendChild(select)
-                        box.appendChild(button)
-                    })
-                })(parts.pop())
+      const div = document.createElement("div");
+      const sub = document.createElement("div");
+      const script = document.createElement("script");
 
-                const div = document.createElement("div")
-                const sub = document.createElement("div")
-                const script = document.createElement("script")
+      sub.id = "game";
+      div.id = "display";
 
-                sub.id = "game"
-                div.id = "display"
+      document.getElementById("top")?.remove();
+      box.remove();
 
-                const top = document.getElementById("top");
-                top.remove();
-                box.remove()
-                div.appendChild(sub)
-                document.body.appendChild(div)
+      div.appendChild(sub);
+      document.body.appendChild(div);
 
-                window.EJS_player = "#game";
-                window.EJS_gameName = parts.shift();
-                window.EJS_biosUrl = "";
-                window.EJS_gameUrl = url;
-                window.EJS_core = core;
-                window.EJS_pathtodata = "data/";
-                window.EJS_startOnLoaded = true;
-                window.EJS_DEBUG_XX = enableDebug;
-                window.EJS_disableDatabases = true;
-                window.EJS_threads = enableThreads;
+      window.EJS_player = "#game";
+      window.EJS_gameName = parts.join(".");
+      window.EJS_biosUrl = "";
+      window.EJS_gameUrl = file;
+      window.EJS_core = core;
+      window.EJS_pathtodata = "data/";
+      window.EJS_startOnLoaded = true;
+      window.EJS_DEBUG_XX = enableDebug;
+      window.EJS_disableDatabases = true;
+      window.EJS_threads = enableThreads;
 
-                script.src = "data/loader.js";
-                document.body.appendChild(script);
-            }
-            box.ondragover = () => box.setAttribute("drag", true);
-            box.ondragleave = () => box.removeAttribute("drag");
+      script.src = "data/loader.js";
+      document.body.appendChild(script);
+    };
+
+    // Drag styling
+    box.ondragover = () => box.setAttribute("drag", true);
+    box.ondragleave = () => box.removeAttribute("drag");
         </script>
     </body>
 </html>
