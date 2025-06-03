@@ -1,45 +1,13 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Clever | Portal</title>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name = viewport content = "width = device-width, initial-scale = 1.0">
-        <link rel = icon href = docs/images.ico sizes = "16x16 32x32 48x48 64x64" type = image/vnd.microsoft.icon>
-        <link
-        rel="stylesheet"
-      />
-      <link rel="stylesheet" href="style.css" />
-        <style>
-          </style>
-           <div class="stars"></div>
-           <div class="shooting-star"></div>
-           <div class="shooting-star"></div>
-           <div class="shooting-star"></div>
-           <div class="shooting-star"></div>
-           <div class="shooting-star"></div>
-    </head>
-
-    <body>
-        <div id="top">
-                        <button class="cssbuttons-io" id="emulatorButton">
-                <span>
-                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path
-                      d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                  Home
-                </span>
-              </button>
-        </div>
-        <div id = box>
-            <input type = file id = input>
-            Drag ROM file or click here
-        </div>
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clever | Portal</title>
+  <link rel="icon" href="docs/images.ico" sizes="16x16 32x32 48x48 64x64" type="image/vnd.microsoft.icon" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="cssbuttons-io.css" />
   <style>
     #box {
       border: 2px dashed transparent;
@@ -49,19 +17,40 @@
       border-radius: 10px;
       max-width: 400px;
       margin: 40px auto;
+      cursor: pointer;
     }
-
     #box[drag] {
       border-color: #4caf50;
       background-color: #f0fff0;
     }
-
     #input {
       display: none;
     }
   </style>
 </head>
 <body>
+
+  <div class="stars"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <div id="top">
+    <button class="cssbuttons-io" id="emulatorButton">
+      <span>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path
+            d="M24 12l-5.657 5.657-1.414-1.414L21.172 12l-4.243-4.243 1.414-1.414L24 12zM2.828 12l4.243 4.243-1.414 1.414L0 12l5.657-5.657L7.07 7.757 2.828 12zm6.96 9H7.66l6.552-18h2.128L9.788 21z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        Home
+      </span>
+    </button>
+  </div>
 
   <div id="box">
     <input type="file" id="input" />
@@ -90,7 +79,8 @@
         enableThreads = true;
         console.log("Threads are enabled");
       } else {
-        console.warn("Threads are disabled as SharedArrayBuffer is not available. See: https://stackoverflow.com/a/68630724");
+        console.warn("Threads are disabled as SharedArrayBuffer is not available.");
+        console.log("Threads are disabled");
       }
     } else {
       console.log("Threads are disabled");
@@ -119,7 +109,6 @@
 
         if (["nds", "gba", "gb", "z64", "n64"].includes(ext)) return ext;
 
-        // fallback: prompt for system
         return await new Promise(resolve => {
           const coreMap = {
             "Nintendo 64": "n64",
@@ -199,9 +188,8 @@
       document.body.appendChild(script);
     };
 
-    // Drag styling
     box.ondragover = () => box.setAttribute("drag", true);
     box.ondragleave = () => box.removeAttribute("drag");
-        </script>
-    </body>
+  </script>
+</body>
 </html>
